@@ -234,6 +234,27 @@ void MainController::run() {
           currentPose->setIdentity();
           *currentPose =
               groundTruthOdometry->getTransformation(logReader->timestamp);
+
+          // Turn the ground truth view port 90 degree
+          Eigen::Matrix3f R1 = (*currentPose).topLeftCorner(3, 3);
+          Eigen::Matrix4f R;
+          R.setIdentity();
+          R(0, 0) = 0;
+          R(0, 1) = 0;
+          R(0, 2) = 1;
+          R(1, 0) = -1;
+          R(1, 1) = 0;
+          R(1, 2) = 0;
+          R(2, 0) = 0;
+          R(2, 1) = -1;
+          R(2, 2) = 0;
+          *currentPose = R * (*currentPose);
+          R1 = (R.topLeftCorner(3, 3)) * (R1)*R.topLeftCorner(3, 3).transpose();
+          for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+              (*currentPose)(i, j) = R1(i, j);
+            }
+          }
         }
 
         eFusion->processFrame(logReader->rgb, logReader->depth,

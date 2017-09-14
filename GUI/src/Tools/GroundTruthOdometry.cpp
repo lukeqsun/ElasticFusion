@@ -30,12 +30,23 @@ void GroundTruthOdometry::loadTrajectory(const std::string& filename) {
   std::ifstream file;
   std::string line;
   file.open(filename.c_str());
+
   while (!file.eof()) {
     unsigned long long int utime;
-    float x, y, z, qx, qy, qz, qw;
+    double utime_tmp, x, y, z, qx, qy, qz, qw;
     std::getline(file, line);
-    int n = sscanf(line.c_str(), "%llu,%f,%f,%f,%f,%f,%f,%f", &utime, &x, &y,
-                   &z, &qx, &qy, &qz, &qw);
+    int n = sscanf(line.c_str(), "%lf %lf %lf %lf %lf %lf %lf %lf", &utime_tmp,
+                   &x, &y, &z, &qx, &qy, &qz, &qw);
+
+    // std::chrono::duration< float > fsec(utime_tmp);
+    // std::chrono::microseconds ms =
+    //     std::chrono::duration_cast< std::chrono::microseconds >(fsec);
+    // utime = ms.count();
+    utime = (unsigned long long int)(utime_tmp);
+    // std::cout << "==== " << line.c_str() << " ====" << utime << std::endl;
+    // std::cout << "x = " << x << " y = " << y << " z = " << z << std::endl;
+    // std::cout << "qx = " << qx << " qy = " << qy << " qz = " << qz
+    //           << " qw = " << qw << std::endl;
 
     if (file.eof()) break;
 
