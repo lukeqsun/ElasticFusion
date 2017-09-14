@@ -3,5 +3,5 @@ deps/
 .project
 .cproject
 *.user
-.gch
-.freiburg
+*.gch
+*.freiburg
