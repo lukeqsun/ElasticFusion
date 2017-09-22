@@ -19,8 +19,8 @@
 #include "GlobalModel.h"
 
 const int GlobalModel::TEXTURE_DIMENSION = 3072;
-const int GlobalModel::MAX_VERTICES = GlobalModel::TEXTURE_DIMENSION * GlobalModel::TEXTURE_DIMENSION;
-const int GlobalModel::NODE_TEXTURE_DIMENSION = 16384;
+const int GlobalModel::MAX_VERTICES = GlobalModel::TEXTURE_DIMENSION * GlobalModel::TEXTURE_DIMENSION * 2;
+const int GlobalModel::NODE_TEXTURE_DIMENSION = 1024 * 32; // 16384
 const int GlobalModel::MAX_NODES = GlobalModel::NODE_TEXTURE_DIMENSION / 16; //16 floats per node
 
 GlobalModel::GlobalModel()
