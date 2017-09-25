@@ -1,6 +1,6 @@
 # - Try to find SUITESPARSE
 # Once done this will define
-#  
+#
 #  SUITESPARSE_FOUND            - system has SUITESPARSE
 #  SUITESPARSE_INCLUDE_DIRS     - the SUITESPARSE include directory
 #  SUITESPARSE_LIBRARIES        - Link these to use SUITESPARSE
@@ -20,20 +20,21 @@ if (WIN32)
   set(ORIGINAL_CMAKE_FIND_LIBRARY_PREFIXES "${CMAKE_FIND_LIBRARY_PREFIXES}")
   set(CMAKE_FIND_LIBRARY_PREFIXES "lib" "" "${CMAKE_FIND_LIBRARY_PREFIXES}")
 endif ()
-  
+
 FIND_PATH( SUITESPARSE_INCLUDE_DIR cholmod.h
-	      PATHS /usr/local/include 
-	            /usr/include 
-	            /usr/include/suitesparse/ 
+	      PATHS /usr/local/include
+	            /usr/include
+	            /usr/include/suitesparse/
 	            ${CMAKE_SOURCE_DIR}/MacOS/Libs/cholmod
       	      PATH_SUFFIXES cholmod/ CHOLMOD/ )
-   	
+
 FIND_PATH( SUITESPARSE_LIBRARY_DIR
           NAMES libcholmod.so libcholmod.a
-          PATHS /usr/lib 
+          PATHS /usr/lib
                 /usr/lib64
                 /usr/lib/x86_64-linux-gnu
                 /usr/lib/i386-linux-gnu
+                /usr/lib/aarch64-linux-gnu
                 /usr/local/lib )
 
    # Add cholmod include directory to collection include directories
@@ -71,8 +72,8 @@ FIND_PATH( SUITESPARSE_LIBRARY_DIR
 		  FIND_LIBRARY( SUITESPARSE_LAPACK_LIBRARY
                      NAMES lapack
                      PATHS ${SUITESPARSE_LIBRARY_DIR}/lapack_blas_windows )
-		ENDIF ()			 
-					 
+		ENDIF ()
+
        list ( APPEND SUITESPARSE_LIBRARIES ${SUITESPARSE_AMD_LIBRARY}
          ${SUITESPARSE_CAMD_LIBRARY}
          ${SUITESPARSE_CCOLAMD_LIBRARY}
@@ -87,7 +88,7 @@ FIND_PATH( SUITESPARSE_LIBRARY_DIR
        FIND_LIBRARY( SUITESPARSE_METIS_LIBRARY
                      NAMES metis
                      PATHS ${SUITESPARSE_LIBRARY_DIR} )
-       IF (SUITESPARSE_METIS_LIBRARY)			
+       IF (SUITESPARSE_METIS_LIBRARY)
 	     list ( APPEND SUITESPARSE_LIBRARIES ${SUITESPARSE_METIS_LIBRARY})
        ENDIF(SUITESPARSE_METIS_LIBRARY)
 
@@ -101,12 +102,12 @@ FIND_PATH( SUITESPARSE_LIBRARY_DIR
 	     FIND_LIBRARY( SUITESPARSE_SPQR_LIBRARY
 		      NAMES spqr
 		      PATHS ${SUITESPARSE_LIBRARY_DIR} )
-	     IF (SUITESPARSE_SPQR_LIBRARY)			
+	     IF (SUITESPARSE_SPQR_LIBRARY)
 	       list ( APPEND SUITESPARSE_LIBRARIES ${SUITESPARSE_SPQR_LIBRARY})
 	     ENDIF (SUITESPARSE_SPQR_LIBRARY)
        endif()
-    ENDIF( SUITESPARSE_LIBRARY_DIR )  
-   
+    ENDIF( SUITESPARSE_LIBRARY_DIR )
+
 IF (SUITESPARSE_INCLUDE_DIRS AND SUITESPARSE_LIBRARIES)
    SET(SUITESPARSE_FOUND TRUE)
    MESSAGE(STATUS "Found SuiteSparse")

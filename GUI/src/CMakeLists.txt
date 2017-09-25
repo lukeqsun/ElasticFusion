@@ -69,10 +69,10 @@ else()
   add_definitions(-Dlinux=1)
 endif()
 
-set(CMAKE_CXX_FLAGS ${ADDITIONAL_CMAKE_CXX_FLAGS} "-O3 -msse2 -msse3 -Wall -std=c++11")
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -std=c++11")
+#set(CMAKE_CXX_FLAGS ${ADDITIONAL_CMAKE_CXX_FLAGS} "-O3 -msse2 -msse3 -Wall -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -std=c++11")
 
-add_executable(ElasticFusion 
+add_executable(ElasticFusion
                ${srcs}
                ${tools_srcs}
                ${hdrs}
